@@ -1,0 +1,71 @@
+miniKanren Teaching languages
+* All versions have a microKanren core
+** How should we treat numbers???
+=============================
+
+FRESHmen         -- Beginner miniKanren
+
+seCONDE          -- Intermediate miniKanren
+
+RUN3             -- Advanced miniKanren
+
+miniKanren/micro -- Full miniKanren
+
+=============================
+
+FRESHmen:
+	- a 'pure' version of mk (i.e. no intermingling Racket/Scheme and mk)
+	- no non-relational code allowed
+	- Numberless
+	- all user-defined functions must be relations (i.e. start with a fresh or conde)
+	- more builtin relations (conso, caro, cdro, etc.)
+	- disallow quasiquote syntax with (read-accept-quasiquote #f)
+	- disallow anonymous lambdas?
+	- perhaps disallow no-arg lambdas? Without side-effects, these aren't very helpful, and most relations have an 'out' variable
+
+	Syntax checker:
+		- conde/fresh/run disallow non-relational code
+		- relation definitions enforce starting with a fresh or conde
+		- relation definitions can contain only one body
+		- ...
+
+seCONDE:
+	- still pure
+	- no non-relational code allowed
+	- Oleg numbers now (with on-the-fly conversion of quoted AND unquoted Arabic numerals)
+	- Oleg numbers come with a set of Oleg relations defined in mk-numbers.rkt
+	- all user-defined functions must be relations (i.e. start with a fresh or conde)
+	- no builtin 'convenience' relations (conso, caro, cdro, etc.)
+	- introduce quasiquoting syntax
+
+	Syntax checker:
+		- ...
+
+RUN3:
+	- intermingling of Racket/Scheme and mk code allowed
+	- non-relational code to be used at user's peril
+	- Oleg numbers w/ on-the-fly conversion
+		* quoted numbers allowed
+	- Oleg relations provided
+	- user-defined functions need not be relations
+	- no builtin 'convenience' relations (conso, caro, cdro, etc.)
+
+	Syntax checker:
+		- ...
+
+miniKanren/micro:
+	- USE AT OWN RISK: no guard-rails!
+	- no Oleg numbers: Oleg numbers and relations must be required explicitly
+	- all code allowed everywhere
+
+	Syntax checker:
+		- ...
+===================================== NOTES =====================================
+
+Can't define any expressions that are not literals or relations, e.g. (string-append "Foo" " bar") is illegal.
+
+See about changing "expected a goal" to "expected a goal, but found a __"
+
+Can't use 'run' because requires a number.
+
+Perhaps have a 'numberless run', or a version of run* that prompts for more results after collecting more than 25 or something.
