@@ -1,4 +1,4 @@
-LittleLogicLanguages
+LittleLogicLangs
 ====================
 
 Project files for miniKanren language levels.
