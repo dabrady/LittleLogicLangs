@@ -62,8 +62,8 @@
   
   (define-syntax (fresh stx)
     (syntax-parse stx
-      [(_ () g0:goal g*:goal ...) #'(conj+ g0 g* ...)]
-      [(_ (x0:id x*:id ...) g0:goal g*:goal ...)
+      [(_ () g0:goal-expr g*:goal-expr ...) #'(conj+ g0 g* ...)]
+      [(_ (x0:id x*:id ...) g0:goal-expr g*:goal-expr ...)
        #'(call/fresh
           (lambda (x0)
             (fresh (x* ...) g0 g* ...)))]))
@@ -164,14 +164,14 @@
   
   (define-syntax (run stx)
     (syntax-parse stx
-      [(_ n (q) g0:goal g:goal ...)
+      [(_ n (q) g0:goal-expr g:goal-expr ...)
        #'(let ((q (var 'q)))
            (map (reify-1st q)
                 (take n (call/empty-state (conj+ g0 g ...)))))]))
 
   (define-syntax (run* stx)
     (syntax-parse stx
-      [(_ (q) g0:goal g:goal ...)
+      [(_ (q) g0:goal-expr g:goal-expr ...)
        #'(let ((q (var 'q)))
            (map (reify-1st q)
                 (take* (call/empty-state (conj+ g0 g ...)))))]))

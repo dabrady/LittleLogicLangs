@@ -1,3 +1,3 @@
 #lang racket
-(require "micro/mk-micro.rkt")
-(provide (all-from-out "micro/mk-micro.rkt"))
+(require "micro/miniKanren-micro.rkt")
+(provide (all-from-out "micro/miniKanren-micro.rkt"))

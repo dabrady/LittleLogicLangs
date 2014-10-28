@@ -2,17 +2,14 @@
   (require (for-syntax syntax/parse
                        "../lib/mk-stx.rkt"))
   (provide (for-syntax (all-from-out "../lib/mk-stx.rkt"))
-           freshman-define)
+           freshman-define
+           define-relation)
   
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   
-  ; A wrapper for #define which ensures all function definitions are relations
-  ; by dictating they begin with either a #fresh or a #conde.
-  (define-syntax (freshman-define stx)
+  ; A companion for #define which ensures all function definitions are relations.
+  (define-syntax (define-relation stx)
     (syntax-parse stx
-      ; A literal.
-      [(_ id:id (~or x:boolean x:str x:char x:number x:symbol x:goal))
-       #'(define id x)]
       ; A >0 arg procedure that ends with -o and begins with #fresh or #conde.
       [(_ id:id rel:relation)
        #:fail-when (not (relation-id? (syntax-e #'id)))
@@ -21,13 +18,17 @@
                            id
                            id))
        #'(define id rel)]
-      ; Anything else is invalid at this point.
-;      [(_ id:id hukarz:expr)
-;       #'(raise-user-error "invalid definition: must be either a literal or a valid relation")]
+      ; MIT notation support
+      [(_ (id:id arg:id ...+) code:expr)
+       #'(define-relation id (lambda (arg ...) code))]
        ))
   
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   
-  ; Disable quasiquote syntax
-  ;(read-accept-quasiquote #f)) ;; Removed for testing of student code, replace soon.
+  ; A wrapper for #define which disallows lambdas, effectively restricting definitions to literals (excluding functions).
+  (define-syntax (freshman-define stx)
+    (syntax-parse stx
+       ; A literal.
+      [(_ id:id (~or x:boolean x:str x:char x:number x:symbol))
+       #'(define id x)]))
   )

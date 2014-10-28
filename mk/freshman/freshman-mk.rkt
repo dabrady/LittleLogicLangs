@@ -18,13 +18,7 @@
 ;		- ...
 
 (module freshman-mk "freshman-mk-lang.rkt"
-  ;(require "../lib/numberless.rkt")
   (require "freshman-stx.rkt")
   (provide (except-out (all-from-out "freshman-mk-lang.rkt") define)
-           ;(all-from-out "../lib/numberless.rkt")
-           (rename-out [freshman-define define]))
-  
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
-
-  )
+           (rename-out [freshman-define define])
+           define-relation))
