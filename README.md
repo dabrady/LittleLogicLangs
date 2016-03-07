@@ -1,8 +1,7 @@
 Little Logic Languages
 ======================
 
-Project files for miniKanren language levels, as outlined in my paper, _[Little Logic Languages for Relational Programming](http://www.schemeworkshop.org/2014/IndianaCSTR718.pdf
-)_, presented at the Scheme and Functional Programming Workshop of 2014. From the abstract:
+Project files for miniKanren language levels, as outlined in my paper, _[Little Logic Languages for Relational Programming](http://www.schemeworkshop.org/2014/papers/Brady2014.pdf)_, presented at the Scheme and Functional Programming Workshop of 2014. From the abstract:
 
 > The miniKanren relational programming language, though designed and used as a
 > language with which to teach relational programming, can be immensely
